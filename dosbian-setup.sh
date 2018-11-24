@@ -232,5 +232,7 @@ echo "$DEFAULTTEXT" > /home/dosbox/dos_root/DOSBIAN/DEFAULTS.BAT
 sudo chown -R dosbox:dosbox /home/dosbox
 
 echo DOSbian installation and configuration complete. Rebooting in 10 seconds. Press CTRL+C to cancel.
-#sleep 10
-#sudo reboot now
+
+sleep 10
+
+sudo reboot now
