@@ -1,22 +1,11 @@
 #!/bin/sh
 
-file1="$HOME/dosbian-preboot.sh"
-file2="$HOME/dosbian-setup.sh"
+file1="dosbian-preboot.sh"
+file2="dosbian-setup.sh"
 
 if [ ! -f "$file1" ] || [ ! -f "$file2" ]; then
-	echo DOSbian setup scripts must be in the HOME directory
+	echo DOSbian setup scripts must be together and you must cd into the directory whgere they are located
 	exit 1
-fi
-## CHECK IF THE MT32 ROM EXISTS IN THE EPXECTED PATH
-## IF NOT, PROVIDE A HINT
-if [ ! -f "$HOME/mt32-rom-data/MT32_CONTROL.ROM" ] || [ ! -f "$HOME/mt32-rom-data/MT32_PCM.ROM" ]; then
-	echo MT32 ROM Data was not found in the expected path \(~/mt32-rom-data\)
-	echo The DOSbian setup script can automatically prepare the ROM files
-	echo if you place them in your HOME directory under the /mt32-rom-data subdirectory
-	echo MT32_CONTROL.ROM and MT32_PCM.ROM are expected by the script for MT-32 emulation
-	echo Press any key to continue or CTRL+C to abort
-	echo If you cancel now, will be able to safely re-run the dosbian-preboot script
-	read
 fi
 
 ## INSTALL SUDO AND REBOOT SINCE IT'S REQUIRED
@@ -31,7 +20,9 @@ usermod -a -G sudo $SUDOUSER
 
 ## PLACE THE NEEDED FILES IN THE ROOT OF THAT USER'S HOME DIRECTORY
 mv dosbian-setup.sh /home/$SUDOUSER/
-mv mt32-rom-data /home/$SUDOUSER/
+if [ -d mt32-rom-data ]; then mv mt32-rom-data /home/$SUDOUSER/
+elif [ -d $HOME/mt32-rom-data ]; then mv $HOME/mt32-rom-data /home/$SUDOUSER/
+fi
 
 ## SET SYSTEM TO AUTOBOOT TO SUDOUSER
 sed -i "s/noclear\ /noclear\ -a\ $SUDOUSER\ /" /lib/systemd/system/getty@.service
