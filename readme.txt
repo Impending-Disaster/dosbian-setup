@@ -39,7 +39,7 @@ We use the NETINST image as it is very thin so we have a clean setup with which
 to work.
 Install using the "Install" option and not the "Graphical Install" option.
 
-When presented with those options, deselect the "Debian Desktop Environment" and
+At the "Software Selection" menu, deselect the "Debian Desktop Environment" and
 "Print server" options as we won't be needing them.
 
 DOSBIAN SETUP
@@ -47,12 +47,17 @@ DOSBIAN SETUP
 1. Log in as root
 
 2. Get the dosbian-setup scripts
-   a) (wget method here)
-   b) (git method here)
+   a) mkdir dosbian-setup
+      cd dosbian-setup
+      wget https://github.com/Impending-Disaster/dosbian-setup/raw/master/dosbian-preboot.sh
+      wget https://github.com/Impending-Disaster/dosbian-setup/raw/master/dosbian-setup.sh
+   b) apt-get install -y git
+      git clone https://github.com/Impending-Disaster/dosbian-setup
+      cd dosbian-setup
 
-3. If you can, ensure your MT-32 ROM files are in /root/mt32-rom-data as the
-   script expects.
-   
+3. If you can, ensure your MT-32 ROM files are in /root/mt32-rom-data or in the
+   dosbian-setup/mt32-rom-data directory so they automatically get installed.
+
 4. Run the following command to make the scripts executable:
    chmod +x dosbian-setup.sh dosbian-preboot.sh
 
