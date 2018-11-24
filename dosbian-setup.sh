@@ -117,27 +117,22 @@ echo Starting DOSbox, press CTRL+C to cancel and escape to shell
 
 sleep 5
 
-echo Checking for an attached storage device
+echo Checking for an attached storage device...
 
-pmount /dev/sdb1
-
-if [ -d /media/sdb1 ]; then
-	echo Attached storage device found, checking for dos_root directory
-	if [ -d /media/sdb1/dos_root ]; then
+for stordev in \$(ls -l /dev/disk/by-id | grep usb- | grep sd.[1-9] | rev | cut -c1-4 | rev); do
+	echo Checking attached storage device for dos_root directory...
+	pmount /dev/\$stordev
+	if [ -d /media/\$stordev/dos_root ]; then
 		echo Found dos_root on attached device, copying files now...
-		rsync -ruhv /media/sdb1/dos_root/ /home/dosbox/dos_root/
-		pumount /dev/sdb1
-		sleep 5
-		echo Copy complete! You can now remove your attached storage device.
+		rsync -ruhv /media/\$stordev/dos_root/ /home/dosbox/dos_root/
+		pumount /dev/\$stordev
 	else
 		echo No dos_root found on attached device.
-		pumount /dev/sdb1
-		sleep 5
-		echo You can now remove your attached storage device.
+		pumount /dev/\$stordev
 	fi
-else
-	echo No attached storage device found.
-fi
+done
+
+echo Done checking attached devices for files to copy.
 
 sleep 5
 
