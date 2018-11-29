@@ -103,7 +103,7 @@ For MIDI support, we are installing TiMidity, and the FluidG3 soundfont.
 I chose TiMidity because the popular alternative, FluidSynth, did not seem
 to have the right levels for all instruments and sounded strange. Thankfully
 we can get TiMidity and the FluidG3 soundfont from the Debian repo. The FluidG3
-soundfont sounds very nice with very high-quality instrument samples. If we
+soundfont sounds excellent and has very high-quality instrument samples. If we
 need OPL3, there is a soundfont avilable but we can also choose SB16 to take
 over music in most cases.
 

@@ -4,7 +4,7 @@ file1="dosbian-preboot.sh"
 file2="dosbian-setup.sh"
 
 if [ ! -f "$file1" ] || [ ! -f "$file2" ]; then
-	echo DOSbian setup scripts must be together and you must cd into the directory whgere they are located
+	echo DOSbian setup scripts must be together and you must cd into the directory where they are located
 	exit 1
 fi
 
@@ -33,7 +33,7 @@ cp /home/$SUDOUSER/.profile /home/$SUDOUSER/profile.bak
 ## REPAIR THE SUDOUSER PERMISSIONS
 chown -R $SUDOUSER:$SUDOUSER /home/$SUDOUSER
 
-## INSERT THE INSTALLATION SCRIPT INTO ROOT'S AUTORUN
+## INSERT THE INSTALLATION SCRIPT INTO THE SUDOUSER'S AUTORUN
 echo "./dosbian-setup.sh | tee dosbian-log.log" >> /home/$SUDOUSER/.profile
 
 reboot now
